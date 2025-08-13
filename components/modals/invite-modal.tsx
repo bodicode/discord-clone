@@ -77,9 +77,9 @@ export const InviteModal = () => {
               size="icon"
             >
               {copied ? (
-                <Check className="w-4 h-4" />
+                <Check className="w-4 h-4 text-zinc-500" />
               ) : (
-                <Copy className="w-4 h-4" />
+                <Copy className="w-4 h-4 text-zinc-500" />
               )}
             </Button>
           </div>
