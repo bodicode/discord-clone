@@ -1,0 +1,35 @@
+name: CD
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  migrate_and_deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: cd-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+
+      # 1) Apply migrations lên Neon (dùng DIRECT_URL)
+      - name: Prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}   # tồn tại để Prisma happy
+          DIRECT_URL:   ${{ secrets.DIRECT_URL }}     # direct (không pooler)
+        run: npx prisma migrate deploy
+
+      # 2) (tuỳ chọn) generate để fail sớm nếu schema lệch
+      - name: Prisma generate
+        run: npx prisma generate
+
+      # 3) Gọi Vercel Deploy Hook -> Vercel tự build với ENV của Vercel
+      - name: Trigger Vercel Production Deploy
+        run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
