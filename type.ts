@@ -1,4 +1,4 @@
-import { Member, Profile, Server } from "./lib/generated/prisma";
+import { Member, Profile, Server } from "@prisma/client";
 
 export type ServerWithMembersWithProfiles = Server & {
   members: (Member & { profile: Profile })[];

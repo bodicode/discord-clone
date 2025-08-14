@@ -32,7 +32,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useEffect } from "react";
-import { ChannelType } from "@/prisma/client";
+import { ChannelType } from "@prisma/client";
 
 const formSchema = z.object({
   name: z

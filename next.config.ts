@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["l2kw9n6neu.ufs.sh"],
   },
-  eslint: { ignoreDuringBuilds: true }
+  eslint: { ignoreDuringBuilds: true },
 };
 
 export default nextConfig;
