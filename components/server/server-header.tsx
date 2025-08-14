@@ -17,7 +17,7 @@ import {
   Users,
 } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
-import { MemberRole, Server } from "@/prisma/client";
+import { MemberRole, Server } from "@prisma/client";
 
 interface ServerHeaderProps {
   server: Server;
