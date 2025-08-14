@@ -204,6 +204,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             </div>
           </div>
         )}
+        Test CID
       </ScrollArea>
     </div>
   );
