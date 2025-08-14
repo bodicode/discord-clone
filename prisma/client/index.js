@@ -170,7 +170,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Web_Project\\discord-clone\\prisma\\generated\\prisma",
+      "value": "D:\\Web_Project\\discord-clone\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -188,10 +188,10 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": "../../.env",
+    "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../..",
+  "relativePath": "..",
   "clientVersion": "6.13.0",
   "engineVersion": "361e86d0ea4987e9f53a565309b3eed797a6bcbd",
   "datasourceNames": [
@@ -207,8 +207,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Profile {\n  id       String @id @default(uuid())\n  userId   String @unique\n  name     String @unique\n  imageUrl String @db.Text\n  email    String @db.Text\n\n  servers  Server[]\n  members  Member[]\n  channels Channel[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Server {\n  id         String @id @default(uuid())\n  name       String @unique\n  imageUrl   String @db.Text\n  inviteCode String @unique\n\n  profileId String\n  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)\n\n  members  Member[]\n  channels Channel[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([profileId])\n}\n\nenum MemberRole {\n  MODERATOR\n  ADMIN\n  GUEST\n}\n\nmodel Member {\n  id   String     @id @default(uuid())\n  role MemberRole @default(GUEST)\n\n  profileId String\n  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)\n\n  serverId String\n  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([profileId])\n  @@index([serverId])\n}\n\nenum ChannelType {\n  TEXT\n  AUDIO\n  VIDEO\n}\n\nmodel Channel {\n  id   String      @id @default(uuid())\n  name String\n  type ChannelType @default(TEXT)\n\n  profileId String\n  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)\n\n  serverId String\n  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([profileId])\n  @@index([serverId])\n}\n",
-  "inlineSchemaHash": "5a1a2fa1e13ff85e43b226f50a2f997e57e8228c1574aa9546da1d7fcce5dc42",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Profile {\n  id       String @id @default(uuid())\n  userId   String @unique\n  name     String @unique\n  imageUrl String @db.Text\n  email    String @db.Text\n\n  servers  Server[]\n  members  Member[]\n  channels Channel[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Server {\n  id         String @id @default(uuid())\n  name       String @unique\n  imageUrl   String @db.Text\n  inviteCode String @unique\n\n  profileId String\n  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)\n\n  members  Member[]\n  channels Channel[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([profileId])\n}\n\nenum MemberRole {\n  MODERATOR\n  ADMIN\n  GUEST\n}\n\nmodel Member {\n  id   String     @id @default(uuid())\n  role MemberRole @default(GUEST)\n\n  profileId String\n  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)\n\n  serverId String\n  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([profileId])\n  @@index([serverId])\n}\n\nenum ChannelType {\n  TEXT\n  AUDIO\n  VIDEO\n}\n\nmodel Channel {\n  id   String      @id @default(uuid())\n  name String\n  type ChannelType @default(TEXT)\n\n  profileId String\n  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)\n\n  serverId String\n  server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([profileId])\n  @@index([serverId])\n}\n",
+  "inlineSchemaHash": "f7b1d02e9d4d0af04f64ebdef4ab33f0e4d7f04b48322021846047e9babbbec5",
   "copyEngine": true
 }
 
@@ -217,8 +217,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "prisma/generated/prisma",
-    "generated/prisma",
+    "prisma/client",
+    "client",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -248,7 +248,7 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "prisma/generated/prisma/query_engine-windows.dll.node")
+path.join(process.cwd(), "prisma/client/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "prisma/generated/prisma/schema.prisma")
+path.join(process.cwd(), "prisma/client/schema.prisma")

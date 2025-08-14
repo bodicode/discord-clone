@@ -5,12 +5,7 @@ import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { ActionTooltip } from "../action-tooltip";
 import { useModal } from "@/hooks/use-modal-store";
-import {
-  Channel,
-  ChannelType,
-  MemberRole,
-  Server,
-} from "@/prisma/generated/prisma";
+import { Channel, ChannelType, MemberRole, Server } from "@/prisma/client";
 
 interface ServerChannelProps {
   channel: Channel;
