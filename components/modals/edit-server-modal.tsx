@@ -63,7 +63,7 @@ export const EditServerModal = () => {
       form.reset();
       router.refresh();
       onClose();
-    } catch (error) { 
+    } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
@@ -96,7 +96,11 @@ export const EditServerModal = () => {
                       <FormControl>
                         <FileUpload
                           endpoint="serverImage"
-                          value={field.value}
+                          value={
+                            field.value
+                              ? { url: field.value, type: "image/*" }
+                              : undefined
+                          }
                           onChange={field.onChange}
                         />
                       </FormControl>
